@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!--김영한 스프링에서 쓰던 css파일 사용-->
+<div class="container" style="max-width: 900px">
+    <div class="py-5 text-center">
+        <h2 th:text="|${member.name}님의 REVIEW_LIST|">REVIEW_LIST</h2>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <!--thymeleaf를 통해date값을 가져올 예정-->
+            <h3 th:text="${month}">March</h3>
+        </div>
+        <div class="col">
+            <!--memberId를 받아오지 않을 수 있을 때 링크 변경 필수-->
+            <button class="btn btn-primary float-end"
+                    th:onclick="|location.href='@{/board/add}'|"
+                    onclick="location.href='write.html'"
+                    type="button">write
+            </button>
+        </div>
+    </div>
+
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th th:text="#{label.board.title}">title</th>
+                <th th:text="#{label.board.writer}">writer</th>
+                <th th:text="#{label.board.rate}">rate</th>
+                <th th:text="#{board.category}">rate</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="board : ${boards}">
+                <!-- th:href="@{/form/board/{memberId}/{boardId}(memberId=${member.memberId}, boardId=${board.boardId})}" -->
+                <td><a href="item.html" th:href="@{/board/board/{boardId}(boardId=${board.id})}"
+                       th:text="${board.title}">TITLE_1</a></td>
+                <td th:text="${board.creator}">authorA</td>
+                <td th:text="${board.rate}">10</td>
+                <td th:text="${board.category}">B</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <form th:action="@{/member/sign-out}" method="post">
+        <button class="w-100 btn btn-dark btn-lg" type="submit">
+            로그아웃
+        </button>
+    </form>
+</div> <!-- /container -->
+
+</body>
+</html>

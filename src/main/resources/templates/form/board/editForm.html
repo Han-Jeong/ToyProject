@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 900px;
+        }
+        #nav {
+            float: left;
+            width: 340px;
+            padding: 5px;
+        }
+        #section{
+            width: 530px;
+            padding: 10px;
+            float: right;
+        }
+        img{
+            max-width: 250px;
+        }
+    </style>
+
+    <title>write</title>
+
+</head>
+
+<body>
+<div class="container">
+    <div class="board_wrap">
+        <form action="board.html" th:action th:object="${board}" method="post">
+            <div class="py-5 text-center">
+                <h2>REVIEW</h2>
+                <p>write what you mind</p>
+            </div>
+            <div class="board_write_wrap">
+
+                <button class="w-100 btn btn-dark btn-lg" onclick="openPopup()" type="button">검색</button>
+
+                <script th:src="@{/js/popup.js}"></script>
+
+                <div class="board_write">
+                    <div id="section">
+                        <div class="title">
+                            <label for="add_form_title" th:text="#{label.board.title}">title</label>
+                            <input type="text" id="add_form_title" th:field="*{title}" class="form-control" placeholder="title">
+                        </div>
+                        <!-- change.made -->
+                        <div class="row">
+                            <div class="col">
+                                <label for="add_form_creator" th:text="#{label.board.writer}">writer</label>
+                                <input type="text" id="add_form_creator" th:field="*{creator}"class="form-control" placeholder="who write/make it">
+                            </div>
+                            <!-- change.made-->
+                            <div class="col">
+                                <link href="/css/star.css" rel="stylesheet"/>
+                                <p th:text="#{label.board.rate}">rate</p>
+                                <div class="mb-3" name="myform" id="myform" >
+                                    <fieldset>
+                                        <input type="radio" name="reviewStar" value="5" id="rate1" th:field="*{rate}"><label
+                                            for="rate1">★</label>
+                                        <input type="radio" name="reviewStar" value="4" id="rate2" th:field="*{rate}"><label
+                                            for="rate2">★</label>
+                                        <input type="radio" name="reviewStar" value="3" id="rate3" th:field="*{rate}"><label
+                                            for="rate3">★</label>
+                                        <input type="radio" name="reviewStar" value="2" id="rate4" th:field="*{rate}"><label
+                                            for="rate4">★</label>
+                                        <input type="radio" name="reviewStar" value="1" id="rate5" th:field="*{rate}"><label
+                                            for="rate5">★</label>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <a th:text="#{board.category}">category</a>
+                            <select th:field="*{category}" class="form-select">
+                                <option value="BOOK" th:text="#{board.category.book}">책</option>
+                                <option value="MOVIE" th:text="#{board.category.movie}">영화</option>
+                            </select>
+                        </div>
+                        <hr class="my-4">
+                        <div class="cont">
+                            <textarea id="content" th:text="#{label.board.content}"
+                                      class="form-control" th:field="*{content}"
+                                      placeholder="content">content</textarea>
+                        </div>
+                        <hr class="my-4">
+                        <div class="row">
+                            <div class="col">
+                                <button class="w-100 btn btn-primary btn-lg" th:text="#{button.save}"type="submit">save</button>
+                            </div>
+                            <div class="col">
+                                <button class="w-100 btn btn-secondary btn-lg"
+                                        th:onclick="|location.href='@{/board}'|"
+                                        onclick="location.href='main.html'" th:text="#{button.cancel}"type="button">cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="nav">
+                    <label for="add_form_imageURL">FILE URL</label>
+                    <input th:field="*{imageURL}" class="form-control"
+                           placeholder="search Link" id="add_form_imageURL"/>
+                    <button class="btn btn-secondary" onclick="previewImage()" type="button">preview</button>
+                    <br>
+                    <img id="preview" alt="이미지 미리보기" style="display: none;">
+                    <script th:src="@{/js/preview.js}"></script>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

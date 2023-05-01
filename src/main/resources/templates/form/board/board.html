@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 900px;
+        }
+         #nav {
+            float: left;
+            width: 340px;
+            padding: 5px;
+        }
+        #section{
+            width: 530px;
+            padding: 10px;
+            float: right;
+        }
+        img{
+            max-width: 250px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" th:object="${board}">
+
+    <div class="py-5 text-center">
+        <h2 th:text="|${member.name}님의 REVIEW_LIST|"
+            th:onclick="|location.href='@{/board}'|">REVIEW_LIST</h2>
+    </div>
+
+    <div id="section">
+        <h2 class="py-3 text-lg-start" id="title" name="title" th:text="*{title}"></h2>
+
+        <div class="category">
+            <h4 th:text="*{category}">category</h4>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div style="float:left;margin-right: 20px;">
+                    <h4 class="text-md-start" type="text" id="writer" name="writer" th:text="*{creator}" readonly/>
+                </div>
+            </div>
+            <div class="col">
+                <link href="/css/star.css" rel="stylesheet"/>
+                <div class="mb-3" name="mydetailform" id="mydetailform" style="margin-top: 10px;">
+                    <fieldset>
+                        <input type="radio" name="reviewStar" value="5" id="rate1" th:field="*{rate}" disabled><label
+                            for="rate1">★</label>
+                        <input type="radio" name="reviewStar" value="4" id="rate2" th:field="*{rate}" disabled><label
+                            for="rate2">★</label>
+                        <input type="radio" name="reviewStar" value="3" id="rate3" th:field="*{rate}" disabled><label
+                            for="rate3">★</label>
+                        <input type="radio" name="reviewStar" value="2" id="rate4" th:field="*{rate}" disabled><label
+                            for="rate4">★</label>
+                        <input type="radio" name="reviewStar" value="1" id="rate5" th:field="*{rate}" disabled><label
+                            for="rate5">★</label>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4">
+        <div class="cont">
+            <p id="content" th:text="*{content}" class="form-control">content</p>
+        </div>
+    </div>
+    <div id="nav">
+        <img th:src="@{${board.imageURL}}" id="imageURL"/>
+    </div>
+
+    <hr class="my-4">
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-primary btn-lg"
+                    onclick="location.href='editForm.html'" th:text="#{button.edit}"
+                    th:onclick="|location.href='@{/board/{boardId}/edit(boardId=${board.id})}'|"
+                    type="button">글 수정
+            </button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='items.html'" th:text="#{button.list}"
+                    th:onclick="|location.href='@{/board}'|"
+                    type="button">목록으로
+            </button>
+        </div>
+    </div>
+
+</div> <!-- /container -->
+</body>
+</html>
